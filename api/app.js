@@ -6,12 +6,15 @@ const authRouter = require("./routes/auth")
 const postRouter = require("./routes/posts")
 const CategoryRouter = require("./routes/categories")
 const multer = require("multer")
+const path = require("path")
 
 const PORT = process.env.PORT || 2000
 const app = express()
 dotenv.config();
 
+app.use(express.urlencoded({extended: true}));
 app.use(express.json())
+app.use("/images",express.static(path.join(__dirname,"/images")))
 
 mongoose.connect(process.env.MONGO_URL)
     .then(console.log("Connected to Mongo"))
